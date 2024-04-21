@@ -9,6 +9,7 @@ let firstDayOfMonth;
 let date = new Date();
 let month = date.getMonth() + 1;
 let year = date.getFullYear();
+
 month_label.innerText = months[month];
 
 function dates(){
@@ -16,9 +17,6 @@ function dates(){
     firstDayOfMonth = (firstDayOfMonth === 0) ? 6 : firstDayOfMonth - 1; 
     month_label.innerText = months[month];
 }
-    
-    
-
 
 
 
@@ -39,11 +37,16 @@ function createEmptyDivs(){
     }
 }
 
-function createDivsCalendar(){
-    for(let i = 0; i < daysInMonth[month]; i++){
+//child_div
+function createDivsCalendar() {
+    for (let i = 0; i < daysInMonth[month]; i++) {
         let child_div = document.createElement('div');
+        let child_div_a = document.createElement("a")
         child_div.className = "child_div";
-        child_div.textContent = i + 1;
+        child_div.id = i+1
+        child_div.textContent = i + 1
+        child_div_a.id = (i+1)+"a"
+        child_div.appendChild(child_div_a)
         parent_div.appendChild(child_div);
     }
 }
@@ -56,6 +59,9 @@ function createOptions(){
         option.id = (i + 1)
         option.value = (i+1)
         select_input.appendChild(option)
+        if(i == month){
+            select_input.value = i
+        }
     }
 }
 
@@ -63,25 +69,52 @@ function main(){
     createDaysOfWeeksDivs()
     createEmptyDivs()
     createDivsCalendar()
+    listenerforclick();
 }
 
 main()
 createOptions()
-// listener on clicked calendar day and toggling class clicked
-const child_divs_all = document.querySelectorAll(".child_div");
-child_divs_all.forEach(childDiv => {
-    childDiv.addEventListener('click', function(){
-        child_divs_all.forEach(div => div.classList.remove('clicked'));
-        this.classList.toggle('clicked');
-        console.log("clicekd div")
-    })
-});
+
+function listenerforclick(){
+    const child_divs_all = document.querySelectorAll(".child_div");
+    child_divs_all.forEach(childDiv => {
+        childDiv.addEventListener('click', function(){
+            child_divs_all.forEach(div => div.classList.remove('clicked'));
+            this.classList.toggle('clicked');
+            console.log("clicekd div")
+        })
+    });
+}
+
 
 select_input.addEventListener("change", function() {
     var selectedOptionValue = select_input.value;
-    console.log(selectedOptionValue)
     month = selectedOptionValue
     parent_div.innerHTML = ""
     dates()
     main()
 });
+
+function updateHiddenInputDay(){
+    var day = document.getElementsByClassName("child_div clicked")
+    var hiddenInputday = document.getElementById("selected_day")
+    hiddenInputday.value = day[0].id
+}
+
+// form functions
+function updateHiddenInputMonth() {
+    var select = document.getElementById('select');
+    var hiddenInput = document.getElementById('selected_month');
+    hiddenInput.value = select.value;
+
+}
+function submitForm(method) {
+    updateHiddenInputDay()
+    var form = document.getElementById('form');
+    form.method = method;
+    form.submit();
+}
+
+
+var hiddenInput = document.getElementById('selected_month');
+hiddenInput.value = month
