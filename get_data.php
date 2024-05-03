@@ -1,5 +1,6 @@
 <?php
-$conn = mysqli_connect("localhost", "id22059274_root", "Kochamasie123!", "id22059274_mydatabase");
+#$conn = mysqli_connect("localhost", "id22059274_root", "Kochamasie123!", "id22059274_mydatabase");
+$conn = mysqli_connect("localhost", "root", "", "mydatabase");
 
 $miesiac = isset($_GET['miesiac']) ? $_GET['miesiac'] : 4; 
 

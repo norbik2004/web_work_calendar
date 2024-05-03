@@ -19,7 +19,6 @@ function dates(){
 }
 
 
-
 function createDaysOfWeeksDivs(){
     for(let i = 0; i < 7; i++){
         let child_div = document.createElement('div');
@@ -66,12 +65,12 @@ function createOptions(){
 }
 
 function main(){
+    dates()
     createDaysOfWeeksDivs()
     createEmptyDivs()
     createDivsCalendar()
     listenerforclick();
 }
-
 main()
 createOptions()
 
@@ -91,15 +90,16 @@ select_input.addEventListener("change", function() {
     var selectedOptionValue = select_input.value;
     month = selectedOptionValue
     parent_div.innerHTML = ""
-    dates()
     main()
 });
-
 function updateHiddenInputDay(){
     var day = document.getElementsByClassName("child_div clicked")
+    let secondHiddenInput = document.getElementById("day")
     var hiddenInputday = document.getElementById("selected_day")
     hiddenInputday.value = day[0].id
+    secondHiddenInput.value = day[0].id
 }
+
 
 // form functions
 function updateHiddenInputMonth() {
@@ -108,13 +108,22 @@ function updateHiddenInputMonth() {
     hiddenInput.value = select.value;
 
 }
-function submitForm(method) {
+function submitFormSend(method) {
     updateHiddenInputDay()
-    var form = document.getElementById('form');
+    var form = document.getElementById('formSend');
+    form.method = method;
+    form.submit();
+}
+
+function submitFormDelete(method) {
+    updateHiddenInputDay()
+    var form = document.getElementById('formDelete');
     form.method = method;
     form.submit();
 }
 
 
+
 var hiddenInput = document.getElementById('selected_month');
 hiddenInput.value = month
+

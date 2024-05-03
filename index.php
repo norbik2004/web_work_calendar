@@ -20,7 +20,7 @@
     </div>
 
     <div id="add_div"> 
-        <form id="form" method="post" action="send_data.php">
+        <form id="formSend" method="post" action="send_data.php">
             <div id="column">
             <label for="start_time" >Godzina startu:</label>
                 <input type="time" id="start_time" name="start_time">
@@ -33,7 +33,13 @@
                 <input type="hidden" id="selected_month" name="selected_month">
                 <!-- schowany inpout z aktalnym dniem -->
                 <input type="hidden" id="selected_day" name="selected_day">
-            <button type="button" onclick="submitForm('POST')" id="button_submit">Dodaj mnie!</button>
+            <button type="button" onclick="submitFormSend('POST')"  id="button_submit">Dodaj mnie!</button>
+        </form>
+    </div>
+    <div id="delete_row">
+        <form id="formDelete" method="post" action="delete_data.php">
+            <input type="hidden" id="day" name="day">
+            <button type="submit" id="button_delete" onclick="submitFormDelete('POST')" >Skasuj Dzień!</button>
         </form>
     </div>
     <script src="script.js"></script>
